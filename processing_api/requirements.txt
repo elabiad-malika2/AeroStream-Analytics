@@ -5,5 +5,8 @@ scikit-learn
 joblib
 psycopg2-binary
 requests
-sentence-transformers
-regex
+
+numpy<2
+sentence-transformers==2.7.0
+torch==2.2.2
+transformers==4.38.2

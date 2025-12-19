@@ -18,7 +18,7 @@ classifier = joblib.load(MODEL_PATH)
 
 # ------------------- LOAD EMBEDDING MODEL -------------------
 embedding_model = SentenceTransformer(
-    "paraphrase-multilingual-MiniLM-L12-v2"
+    "cardiffnlp/twitter-roberta-base-sentiment"
 )
 
 # ------------------- CLEAN TEXT -------------------
