@@ -1,0 +1,60 @@
+{
+    "LogisticRegression": {
+        "train": {
+            "accuracy": 0.8531323108916038,
+            "precision_macro": 0.8083319305566569,
+            "recall_macro": 0.8273188244476285,
+            "f1_macro": 0.817313572984736,
+            "precision_weighted": 0.8567776236469736,
+            "recall_weighted": 0.8531323108916038,
+            "f1_weighted": 0.8545611997749851
+        },
+        "test": {
+            "accuracy": 0.831947331947332,
+            "precision_macro": 0.7765475369988285,
+            "recall_macro": 0.8008094872393552,
+            "f1_macro": 0.787709234604273,
+            "precision_weighted": 0.8375005901135721,
+            "recall_weighted": 0.831947331947332,
+            "f1_weighted": 0.8340339460350047
+        },
+        "gap": {
+            "accuracy": 0.02118497894427185,
+            "precision_macro": 0.03178439355782836,
+            "recall_macro": 0.02650933720827331,
+            "f1_macro": 0.029604338380462947,
+            "precision_weighted": 0.01927703353340149,
+            "recall_weighted": 0.02118497894427185,
+            "f1_weighted": 0.020527253739980433
+        }
+    },
+    "SVM": {
+        "train": {
+            "accuracy": 0.8990555411142882,
+            "precision_macro": 0.8620068996519444,
+            "recall_macro": 0.9099665038492933,
+            "f1_macro": 0.8830954522473794,
+            "precision_weighted": 0.9070672132085281,
+            "recall_weighted": 0.8990555411142882,
+            "f1_weighted": 0.9007608380029122
+        },
+        "test": {
+            "accuracy": 0.8225918225918226,
+            "precision_macro": 0.7636532851886919,
+            "recall_macro": 0.8018195899639889,
+            "f1_macro": 0.7801742078297771,
+            "precision_weighted": 0.8349799811230456,
+            "recall_weighted": 0.8225918225918226,
+            "f1_weighted": 0.8267353407999527
+        },
+        "gap": {
+            "accuracy": 0.07646371852246558,
+            "precision_macro": 0.09835361446325253,
+            "recall_macro": 0.1081469138853044,
+            "f1_macro": 0.10292124441760231,
+            "precision_weighted": 0.07208723208548251,
+            "recall_weighted": 0.07646371852246558,
+            "f1_weighted": 0.07402549720295948
+        }
+    }
+}
