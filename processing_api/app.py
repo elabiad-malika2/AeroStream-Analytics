@@ -5,10 +5,10 @@ import re
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 
-# ------------------- INIT APP -------------------
+# INIT APP
 app = FastAPI(title="AeroStream Processing API")
 
-# ------------------- LOAD MODEL -------------------
+# LOAD MODEL
 MODEL_PATH = os.path.join("modele", "logistic_model_final.pkl")
 
 if not os.path.exists(MODEL_PATH):
@@ -16,12 +16,12 @@ if not os.path.exists(MODEL_PATH):
 
 classifier = joblib.load(MODEL_PATH)
 
-# ------------------- LOAD EMBEDDING MODEL -------------------
+# LOAD EMBEDDING MODEL
 embedding_model = SentenceTransformer(
     "cardiffnlp/twitter-roberta-base-sentiment"
 )
 
-# ------------------- CLEAN TEXT -------------------
+# CLEAN TEXT
 def clean_text(text):
     if text is None:
         return None
@@ -35,15 +35,9 @@ def clean_text(text):
 
     return text if text else None
 
-# ------------------- PREDICTION ENDPOINT -------------------
+# PREDICTION ENDPOINT
 @app.post("/predict")
 async def predict(request: Request):
-    """
-    Expected JSON:
-    {
-        "texts": ["tweet 1", "tweet 2", "..."]
-    }
-    """
 
     data = await request.json()
     texts = data.get("texts")
@@ -51,29 +45,27 @@ async def predict(request: Request):
     if not texts or not isinstance(texts, list):
         return {"error": "texts must be a non-empty list"}
 
-    # Convert to DataFrame
     df = pd.DataFrame(texts, columns=["text"])
 
     # Clean text
     df["text"] = df["text"].apply(clean_text)
 
-    # Remove null & duplicates
-    df = df.dropna().drop_duplicates(subset="text")
+    
 
     if df.empty:
         return {"error": "No valid text after cleaning"}
 
-    # ------------------- EMBEDDING -------------------
+    # EMBEDDING
     embeddings = embedding_model.encode(
         df["text"].tolist(),
         convert_to_numpy=True,
         normalize_embeddings=True
     )
 
-    # ------------------- PREDICTION -------------------
+    # PREDICTION
     predictions = classifier.predict(embeddings)
 
-    # ------------------- RESPONSE -------------------
+    # RESPONSE
     results = []
     for text, pred in zip(df["text"], predictions):
         results.append({

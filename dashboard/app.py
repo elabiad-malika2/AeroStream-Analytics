@@ -44,9 +44,8 @@ tweets = Table(
 )
 
 if page == "Aggregation Dashboard":
-    # =============================
+
     # KPI FUNCTIONS
-    # =============================
     @st.cache_data(ttl=8)
     def total_tweets():
         stmt = select(func.count()).select_from(tweets)
@@ -75,9 +74,8 @@ if page == "Aggregation Dashboard":
 
         return round((negative / total) * 100, 2)
 
-    # =============================
     # AGGREGATIONS
-    # =============================
+    
     @st.cache_data(ttl=8)
     def tweets_per_airline():
         stmt = (
@@ -155,15 +153,11 @@ if page == "Aggregation Dashboard":
 
         return pd.DataFrame(rows, columns=["negativereason", "count"])
 
-    # =============================
-    # UI
-    # =============================
+    
     st.title(" AeroStream – Real-time Sentiment Dashboard")
     st.markdown("Analyse en temps réel des avis clients des compagnies aériennes")
 
-    # =============================
     # KPI CARDS
-    # =============================
     col1, col2, col3 = st.columns(3)
 
     col1.metric("Total Tweets", total_tweets())
@@ -172,9 +166,8 @@ if page == "Aggregation Dashboard":
 
     st.divider()
 
-    # =============================
     # VISUALISATIONS
-    # =============================
+
     col_left, col_right = st.columns(2)
 
     with col_left:
@@ -197,9 +190,8 @@ if page == "Aggregation Dashboard":
 
     st.divider()
 
-    # =============================
     # SATISFACTION
-    # =============================
+
     st.subheader(" Taux de satisfaction par compagnie")
 
     df_satisfaction = satisfaction_rate()
@@ -207,9 +199,7 @@ if page == "Aggregation Dashboard":
 
     st.divider()
 
-    # =============================
     # NEGATIVE REASONS
-    # =============================
     st.subheader(" Principales causes de tweets négatifs")
 
     neg_df = negative_reasons()
@@ -224,16 +214,13 @@ elif page == "Evaluation des métriques":
 
     st.title("Évaluation des Modèles ML")
 
-    # =============================
     # LOAD METRICS JSON
-    # =============================
+
     with open("Evaluation/metrics_results.json") as f:
         metrics = json.load(f)
 
 
-    # =============================
     # PER MODEL DETAILS
-    # =============================
 
     for model, data in metrics.items():
         st.subheader(f" {model}")

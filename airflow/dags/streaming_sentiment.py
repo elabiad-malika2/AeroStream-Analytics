@@ -5,7 +5,6 @@ import requests
 from sqlalchemy import create_engine,MetaData,Table,Column,Integer,String,TIMESTAMP
 from sqlalchemy.dialects.postgresql import insert
 
-# ------------------- CONFIG -------------------
 
 PRODUCER_API_URL = "http://producer_api:8001/batch"
 PROCESSING_API_URL = "http://processing_api:8002/predict"
@@ -24,10 +23,8 @@ DEFAULT_ARGS = {
     "retry_delay": timedelta(seconds=30),
 }
 
-# ------------------- FUNCTIONS -------------------
 
 def fetch_tweets(**context):
-    """Récupération micro-batch depuis l’API du prof"""
 
     response = requests.get(
         PRODUCER_API_URL,
@@ -72,7 +69,7 @@ def process_tweets(**context):
 
 
 def store_to_postgres(**context):
-    """ Stockage brut """
+    
 
     data = context["ti"].xcom_pull(key="processed")
 
@@ -95,10 +92,8 @@ def store_to_postgres(**context):
         Column("tweet_created", TIMESTAMP),
     )
 
-    # create table if not exist
     metadata.create_all(engine)
 
-    # insertion data
 
     rows=[
         {
@@ -115,13 +110,12 @@ def store_to_postgres(**context):
         conn.execute(tweets.insert(),rows)
 
 
-# ------------------- DAG -------------------
 
 with DAG(
     dag_id="aerostream_streaming_pipeline",
     description="Micro-batch streaming ingestion pipeline",
     start_date=datetime(2025, 1, 1),
-    schedule_interval="*/1 * * * *",  # chaque minute
+    schedule_interval="*/1 * * * *",  
     catchup=False,
     default_args=DEFAULT_ARGS,
     tags=["streaming", "airflow", "nlp"]
